@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol Row {
+public protocol Controller {
     associatedtype ValueType
     var value: ValueType { get set }
 }

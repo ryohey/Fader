@@ -1,7 +1,7 @@
 import UIKit
 
 @IBDesignable
-public class SliderRow: UIView, Row {
+public class NumberControllerSlider: UIView, Controller {
     public typealias ValueType = Float
 
     @IBInspectable

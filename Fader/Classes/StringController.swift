@@ -1,7 +1,7 @@
 import UIKit
 
 @IBDesignable
-public class TextRow: UIView, Row {
+public class StringController: UIView, Controller {
     public typealias ValueType = String
 
     @IBInspectable
@@ -73,7 +73,7 @@ public class TextRow: UIView, Row {
     }
 }
 
-extension TextRow: UITextFieldDelegate {
+extension StringController: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string == "\n" {
             textField.resignFirstResponder()

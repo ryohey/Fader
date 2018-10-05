@@ -15,10 +15,11 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		79BF621A712A0C380738F911 /* Pods_Fader_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CEC3C810FCC22701C7F857A /* Pods_Fader_Example.framework */; };
 		8381D7CBC9E9BD97219482CC /* Pods_Fader_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2237792D7ACE422BD8F917D /* Pods_Fader_Tests.framework */; };
-		D91756322167BCF800AF6665 /* TextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917562E2167BCF800AF6665 /* TextRow.swift */; };
+		D91756322167BCF800AF6665 /* StringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917562E2167BCF800AF6665 /* StringController.swift */; };
 		D91756332167BCF800AF6665 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917562F2167BCF800AF6665 /* Slider.swift */; };
-		D91756342167BCF800AF6665 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756302167BCF800AF6665 /* Row.swift */; };
-		D91756352167BCF800AF6665 /* SliderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756312167BCF800AF6665 /* SliderRow.swift */; };
+		D91756342167BCF800AF6665 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756302167BCF800AF6665 /* Controller.swift */; };
+		D91756352167BCF800AF6665 /* NumberControllerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756312167BCF800AF6665 /* NumberControllerSlider.swift */; };
+		D91756392167BDD700AF6665 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756382167BDD700AF6665 /* Switch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +52,11 @@
 		9CEC3C810FCC22701C7F857A /* Pods_Fader_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fader_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEDE5246A194A3DEAD183A7 /* Pods-Fader_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fader_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fader_Tests/Pods-Fader_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		D2237792D7ACE422BD8F917D /* Pods_Fader_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fader_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D917562E2167BCF800AF6665 /* TextRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextRow.swift; path = ../../Fader/Classes/TextRow.swift; sourceTree = "<group>"; };
+		D917562E2167BCF800AF6665 /* StringController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringController.swift; path = ../../Fader/Classes/StringController.swift; sourceTree = "<group>"; };
 		D917562F2167BCF800AF6665 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Slider.swift; path = ../../Fader/Classes/Slider.swift; sourceTree = "<group>"; };
-		D91756302167BCF800AF6665 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Row.swift; path = ../../Fader/Classes/Row.swift; sourceTree = "<group>"; };
-		D91756312167BCF800AF6665 /* SliderRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SliderRow.swift; path = ../../Fader/Classes/SliderRow.swift; sourceTree = "<group>"; };
+		D91756302167BCF800AF6665 /* Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Controller.swift; path = ../../Fader/Classes/Controller.swift; sourceTree = "<group>"; };
+		D91756312167BCF800AF6665 /* NumberControllerSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberControllerSlider.swift; path = ../../Fader/Classes/NumberControllerSlider.swift; sourceTree = "<group>"; };
+		D91756382167BDD700AF6665 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Switch.swift; path = ../../Fader/Classes/Switch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +119,11 @@
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
-				D91756302167BCF800AF6665 /* Row.swift */,
+				D91756302167BCF800AF6665 /* Controller.swift */,
 				D917562F2167BCF800AF6665 /* Slider.swift */,
-				D91756312167BCF800AF6665 /* SliderRow.swift */,
-				D917562E2167BCF800AF6665 /* TextRow.swift */,
+				D91756382167BDD700AF6665 /* Switch.swift */,
+				D91756312167BCF800AF6665 /* NumberControllerSlider.swift */,
+				D917562E2167BCF800AF6665 /* StringController.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for Fader";
@@ -376,9 +379,10 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				D91756332167BCF800AF6665 /* Slider.swift in Sources */,
-				D91756352167BCF800AF6665 /* SliderRow.swift in Sources */,
-				D91756342167BCF800AF6665 /* Row.swift in Sources */,
-				D91756322167BCF800AF6665 /* TextRow.swift in Sources */,
+				D91756352167BCF800AF6665 /* NumberControllerSlider.swift in Sources */,
+				D91756342167BCF800AF6665 /* Controller.swift in Sources */,
+				D91756322167BCF800AF6665 /* StringController.swift in Sources */,
+				D91756392167BDD700AF6665 /* Switch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
