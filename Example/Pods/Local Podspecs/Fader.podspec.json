@@ -1,0 +1,22 @@
+{
+  "name": "Fader",
+  "version": "0.1.0",
+  "summary": "A short description of Fader.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/ryohey/Fader",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "ryohey": "info@codingcafe.jp"
+  },
+  "source": {
+    "git": "https://github.com/ryohey/Fader.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Fader/Classes/**/*"
+}

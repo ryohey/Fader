@@ -1,0 +1,6 @@
+framework module Pods_Fader_Example {
+  umbrella header "Pods-Fader_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

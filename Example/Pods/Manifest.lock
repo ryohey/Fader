@@ -1,0 +1,27 @@
+PODS:
+  - Fader (0.1.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+
+DEPENDENCIES:
+  - Fader (from `../`)
+  - FBSnapshotTestCase (~> 2.1.4)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  Fader:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Fader: 920d245a364aee0b959f5307900a3a4ae897bc7a
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+
+PODFILE CHECKSUM: a6cce13e5ba825db94a708e37815fdf4b50afea9
+
+COCOAPODS: 1.5.3
