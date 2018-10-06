@@ -29,6 +29,11 @@ class ViewController: UIViewController {
                   maxValue: 10.0)
 
         fader.add(target: particle,
+                  keyPath: \SCNParticleSystem.particleSize,
+                  minValue: 0.0,
+                  maxValue: 10.0)
+
+        fader.add(target: particle,
                   keyPath: \SCNParticleSystem.isAffectedByGravity)
     }
 

@@ -5,6 +5,9 @@ struct ControllerTarget<T: AnyObject> {
     weak var target: T?
 }
 
+private let ControllerHeight: CGFloat = 44
+private let SeparatorHeight: CGFloat = 0.5
+
 @IBDesignable
 public class Fader: UIStackView {
     // controller, target pair
@@ -35,7 +38,7 @@ public class Fader: UIStackView {
         button.setTitle("Close Controls", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         addArrangedSubview(button)
-        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.heightAnchor.constraint(equalToConstant: ControllerHeight).isActive = true
     }
 
     private func addContent(_ view: UIView) {
@@ -46,7 +49,7 @@ public class Fader: UIStackView {
     private func createSeparator() -> UIView {
         let separator = UIView()
         separator.backgroundColor = UIColor(white: 0.3, alpha: 1)
-        separator.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        separator.heightAnchor.constraint(equalToConstant: SeparatorHeight).isActive = true
         return separator
     }
 
@@ -108,9 +111,12 @@ public class Fader: UIStackView {
         }
 
         addContent(controller)
+        controller.heightAnchor.constraint(equalToConstant: ControllerHeight).isActive = true
+    }
 
-        if let first = firstController {
-            controller.heightAnchor.constraint(equalTo: first.heightAnchor).isActive = true
-        }
+    override public var intrinsicContentSize: CGSize {
+        let count = CGFloat(controllers.count)
+        let h = count * ControllerHeight + (count - 1.0) * SeparatorHeight
+        return CGSize(width: 200, height: h)
     }
 }
