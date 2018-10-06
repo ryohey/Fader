@@ -4,6 +4,7 @@ import SceneKit
 class ViewController: UIViewController {
     @IBOutlet weak var scnView: SCNView!
     @IBOutlet weak var fader: Fader!
+    private var particle = SCNParticleSystem(named: "Fire.scnp", inDirectory: "")!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -11,6 +12,16 @@ class ViewController: UIViewController {
         let scene = SCNScene()
         setupScene(scene)
         scnView.scene = scene
+
+        fader.add(target: &particle,
+                  keyPath: \SCNParticleSystem.birthRate,
+                  minValue: 0.0,
+                  maxValue: 1000.0)
+
+        fader.add(target: &particle,
+                  keyPath: \SCNParticleSystem.particleLifeSpan,
+                  minValue: 0.0,
+                  maxValue: 10.0)
     }
 
     private func setupScene(_ scene: SCNScene) {
@@ -24,15 +35,7 @@ class ViewController: UIViewController {
         let textShape = SCNText(string: "Fader", extrusionDepth: 1)
         textShape.flatness = 0.0
 
-        guard var particle = SCNParticleSystem(named: "Fire.scnp", inDirectory: "") else {
-            fatalError()
-        }
-
         particle.emitterShape = textShape
-        fader.add(target: &particle,
-                  keyPath: \SCNParticleSystem.birthRate,
-                  minValue: 0.0,
-                  maxValue: 1000.0)
 
         let node = SCNNode()
         if let particleShapePosition = particle.emitterShape?.boundingSphere.center {
