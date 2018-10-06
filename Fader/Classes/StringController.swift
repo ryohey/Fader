@@ -13,6 +13,12 @@ public class StringController: UIView, Controller {
 
     public var valueChanged: ((ValueType) -> Void)?
 
+    public var labelText: String = "" {
+        didSet {
+            label.text = labelText
+        }
+    }
+    
     public override var tintColor: UIColor! {
         didSet {
             mark.backgroundColor = tintColor

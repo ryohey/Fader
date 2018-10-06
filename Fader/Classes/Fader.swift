@@ -87,6 +87,9 @@ public class Fader: UIStackView {
 
         controllers.append(ControllerTarget(view: view, target: target))
 
+        let keyPathName = target is NSObject ? NSExpression(forKeyPath: keyPath).keyPath : "unknown"
+
+        controller.labelText = keyPathName
         controller.value = target[keyPath: keyPath]
         controller.valueChanged = { [weak self] (value) in
             // Since inout parameter can not be captured, it is obtained from a tuple

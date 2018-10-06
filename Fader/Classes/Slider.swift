@@ -37,9 +37,10 @@ class Slider: UIView {
         guard let ctx = UIGraphicsGetCurrentContext() else {
             return
         }
+        let pos = (value - minValue) / (maxValue - minValue)
         ctx.addRect(CGRect(x: 0,
                            y: 0,
-                           width: CGFloat(Float(rect.width) * value),
+                           width: CGFloat(Float(rect.width) * pos),
                            height: rect.height))
         ctx.setFillColor(tintColor.cgColor)
         ctx.fillPath()

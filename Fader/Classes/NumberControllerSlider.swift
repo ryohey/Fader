@@ -26,6 +26,12 @@ public class NumberControllerSlider<T>: UIView, Controller where T: FloatConvert
 
     public var valueChanged: ((ValueType) -> Void)?
 
+    public var labelText: String = "" {
+        didSet {
+            label.text = labelText
+        }
+    }
+
     public override var tintColor: UIColor! {
         didSet {
             slider.tintColor = tintColor
