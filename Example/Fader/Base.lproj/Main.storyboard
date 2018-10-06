@@ -21,6 +21,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2a4-vo-Eua">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </sceneKitView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Lht-Ea-hiz">
                                 <rect key="frame" x="0.0" y="28" width="240" height="250"/>
                                 <subviews>
@@ -58,8 +61,8 @@
                                     <constraint firstAttribute="height" constant="250" id="GCY-xb-jGg"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FPf-e1-vD7" customClass="Fader" customModule="Fader_Example" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="500" width="0.0" height="200"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPf-e1-vD7" customClass="Fader" customModule="Fader_Example" customModuleProvider="target">
+                                <rect key="frame" x="30" y="500" width="200" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="dqu-5G-6d0"/>
@@ -69,12 +72,20 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="2a4-vo-Eua" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="CHo-Rf-wJk"/>
                             <constraint firstItem="Lht-Ea-hiz" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="G1t-v0-r3B"/>
                             <constraint firstItem="FPf-e1-vD7" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="500" id="HsM-tG-hGW"/>
+                            <constraint firstAttribute="trailing" secondItem="2a4-vo-Eua" secondAttribute="trailing" id="OGP-Js-wUH"/>
                             <constraint firstItem="Lht-Ea-hiz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="ers-en-1nS"/>
+                            <constraint firstItem="2a4-vo-Eua" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="qgn-YS-6rQ"/>
+                            <constraint firstAttribute="bottom" secondItem="2a4-vo-Eua" secondAttribute="bottom" id="v7u-ca-WXb"/>
                             <constraint firstItem="FPf-e1-vD7" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="30" id="zr4-St-har"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="fader" destination="FPf-e1-vD7" id="PYM-YM-sox"/>
+                        <outlet property="scnView" destination="2a4-vo-Eua" id="0a6-i7-uEk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

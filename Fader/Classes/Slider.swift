@@ -10,9 +10,22 @@ import UIKit
 
 @IBDesignable
 class Slider: UIView {
-    // 0 to 1
     @IBInspectable
     public var value: Float = 0.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    @IBInspectable
+    public var minValue: Float = 0.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    @IBInspectable
+    public var maxValue: Float = 1.0 {
         didSet {
             setNeedsDisplay()
         }
@@ -46,7 +59,8 @@ class Slider: UIView {
         guard let loc = touches.first?.location(in: self) else {
             return
         }
-        value = Float(loc.x) / Float(frame.width)
+        let s = max(0.0, min(1.0, Float(loc.x) / Float(frame.width)))
+        value = minValue + s * (maxValue - minValue)
         valueChanged?(value)
     }
 }

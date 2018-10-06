@@ -22,6 +22,9 @@
 		D91756392167BDD700AF6665 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756382167BDD700AF6665 /* Switch.swift */; };
 		D917563B2167C1FF00AF6665 /* BooleanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917563A2167C1FF00AF6665 /* BooleanController.swift */; };
 		D917563D2167C4D900AF6665 /* Fader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917563C2167C4D900AF6665 /* Fader.swift */; };
+		D91756402168B70F00AF6665 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D917563E2168B70F00AF6665 /* spark.png */; };
+		D91756412168B70F00AF6665 /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = D917563F2168B70F00AF6665 /* Fire.scnp */; };
+		D91AF9412168C5170066D378 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AF9402168C5170066D378 /* Types.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		D91756382167BDD700AF6665 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Switch.swift; path = ../../Fader/Classes/Switch.swift; sourceTree = "<group>"; };
 		D917563A2167C1FF00AF6665 /* BooleanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BooleanController.swift; path = ../../Fader/Classes/BooleanController.swift; sourceTree = "<group>"; };
 		D917563C2167C4D900AF6665 /* Fader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fader.swift; path = ../../Fader/Classes/Fader.swift; sourceTree = "<group>"; };
+		D917563E2168B70F00AF6665 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		D917563F2168B70F00AF6665 /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
+		D91AF9402168C5170066D378 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Types.swift; path = ../../Fader/Classes/Types.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,8 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				D917563E2168B70F00AF6665 /* spark.png */,
+				D917563F2168B70F00AF6665 /* Fire.scnp */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				D91756302167BCF800AF6665 /* Controller.swift */,
@@ -131,6 +139,7 @@
 				D917562E2167BCF800AF6665 /* StringController.swift */,
 				D917563C2167C4D900AF6665 /* Fader.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				D91AF9402168C5170066D378 /* Types.swift */,
 			);
 			name = "Example for Fader";
 			path = Fader;
@@ -272,7 +281,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				D91756402168B70F00AF6665 /* spark.png in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				D91756412168B70F00AF6665 /* Fire.scnp in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +396,7 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				D91756332167BCF800AF6665 /* Slider.swift in Sources */,
+				D91AF9412168C5170066D378 /* Types.swift in Sources */,
 				D91756352167BCF800AF6665 /* NumberControllerSlider.swift in Sources */,
 				D91756342167BCF800AF6665 /* Controller.swift in Sources */,
 				D91756322167BCF800AF6665 /* StringController.swift in Sources */,

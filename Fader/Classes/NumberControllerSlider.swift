@@ -1,13 +1,26 @@
 import UIKit
 
 @IBDesignable
-public class NumberControllerSlider: UIView, Controller {
-    public typealias ValueType = Float
+public class NumberControllerSlider<T>: UIView, Controller where T: FloatConvertible {
+    public typealias ValueType = T
 
-    @IBInspectable
-    public var value: ValueType = 0.5 {
+    public var value: ValueType = .init(0) {
         didSet {
             applyValue()
+        }
+    }
+
+    public var minValue: ValueType = .init(0.0) {
+        didSet {
+            slider.minValue = minValue.asFloat
+            value = max(minValue, value)
+        }
+    }
+
+    public var maxValue: ValueType = .init(1.0) {
+        didSet {
+            slider.maxValue = maxValue.asFloat
+            value = min(maxValue, value)
         }
     }
 
@@ -20,10 +33,10 @@ public class NumberControllerSlider: UIView, Controller {
         }
     }
 
-    private let mark = UIView(frame: CGRect.zero)
-    private let label = UILabel(frame: CGRect.zero)
-    private let slider = Slider(frame: CGRect.zero)
-    private let textField = UITextField(frame: CGRect.zero)
+    private let mark = UIView(frame: .zero)
+    private let label = UILabel(frame: .zero)
+    private let slider = Slider(frame: .zero)
+    private let textField = UITextField(frame: .zero)
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,13 +53,13 @@ public class NumberControllerSlider: UIView, Controller {
         label.text = "Label"
 
         mark.backgroundColor = tintColor
-        label.textColor = UIColor.white
-        label.backgroundColor = UIColor.clear
-        label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        slider.backgroundColor = UIColor.init(white: 1, alpha: 0.2)
-        textField.backgroundColor = UIColor.init(white: 1, alpha: 0.2)
-        textField.textColor = UIColor.white
-        textField.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+        label.textColor = .white
+        label.backgroundColor = .clear
+        label.font = .systemFont(ofSize: UIFont.smallSystemFontSize)
+        slider.backgroundColor = UIColor(white: 1, alpha: 0.2)
+        textField.backgroundColor = UIColor(white: 1, alpha: 0.2)
+        textField.textColor = .white
+        textField.font = .systemFont(ofSize: UIFont.smallSystemFontSize)
 
         addSubview(mark)
         addSubview(label)
@@ -54,8 +67,9 @@ public class NumberControllerSlider: UIView, Controller {
         addSubview(textField)
 
         slider.valueChanged = {
-            self.value = $0
-            self.valueChanged?($0)
+            let v = T.init($0)
+            self.value = v
+            self.valueChanged?(v)
         }
         textField.keyboardType = .decimalPad
         configureTextFieldAccessory()
@@ -96,14 +110,18 @@ public class NumberControllerSlider: UIView, Controller {
     }
 
     private func applyValue() {
-        slider.value = value
-        textField.text = "\(value)"
+        let v = value.asFloat
+        slider.value = v
+        textField.text = "\(v)"
     }
 
     @objc private func didPushDone() {
-        if let text = textField.text, let v = Float(text) {
-            value = v
-            valueChanged?(v)
+        if let text = textField.text,
+            let valueFloat = Float(text) {
+            let valueT = T.init(valueFloat)
+            let adjustedValue = min(maxValue, max(minValue, valueT))
+            value = adjustedValue
+            valueChanged?(value)
             textField.resignFirstResponder()
         } else {
             applyValue()

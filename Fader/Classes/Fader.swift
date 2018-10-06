@@ -1,29 +1,9 @@
 import UIKit
 
-//private struct Target {
-//    let target: Any
-//    let keyPath: KeyPath<Any, Any>
-//    let minValue: Float
-//    let maxValue: Float
-//    let controller: Controller
-//}
-
-private protocol Layoutable {
-    var heightAnchor: NSLayoutDimension { get }
-}
-
-class SampleTarget {
-    var strength: Float = 0
-}
-
 struct ControllerTarget<T: AnyObject> {
     var view: UIView
     weak var target: T?
 }
-
-extension UIView: Layoutable {}
-
-private typealias AnyControllerView = AnyController<Any> & Layoutable
 
 @IBDesignable
 public class Fader: UIStackView {
@@ -45,10 +25,6 @@ public class Fader: UIStackView {
         alignment = .fill
 
         setupCloseButton()
-
-        var t = SampleTarget()
-
-        add(target: &t, keyPath: \SampleTarget.strength)
     }
 
     private func setupCloseButton() {
@@ -74,8 +50,13 @@ public class Fader: UIStackView {
         return separator
     }
 
-    public func add<T>(target: inout T, keyPath: WritableKeyPath<T, Float>) where T: AnyObject {
-        let ctrl = NumberControllerSlider(frame: .zero)
+    public func add<T, S>(target: inout T,
+                          keyPath: WritableKeyPath<T, S>,
+                          minValue: S = .init(0.0),
+                          maxValue: S = .init(1.0)) where T: AnyObject, S: FloatConvertible {
+        let ctrl = NumberControllerSlider<S>(frame: .zero)
+        ctrl.minValue = minValue
+        ctrl.maxValue = maxValue
         addController(target: &target,
                       keyPath: keyPath,
                       controller: AnyController(ctrl),
