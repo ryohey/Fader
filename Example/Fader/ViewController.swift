@@ -13,15 +13,23 @@ class ViewController: UIViewController {
         setupScene(scene)
         scnView.scene = scene
 
-        fader.add(target: &particle,
+        fader.add(target: particle,
                   keyPath: \SCNParticleSystem.birthRate,
                   minValue: 0.0,
                   maxValue: 1000.0)
 
-        fader.add(target: &particle,
+        fader.add(target: particle,
                   keyPath: \SCNParticleSystem.particleLifeSpan,
                   minValue: 0.0,
                   maxValue: 10.0)
+
+        fader.add(target: particle,
+                  keyPath: \SCNParticleSystem.particleVelocity,
+                  minValue: 0.0,
+                  maxValue: 10.0)
+
+        fader.add(target: particle,
+                  keyPath: \SCNParticleSystem.isAffectedByGravity)
     }
 
     private func setupScene(_ scene: SCNScene) {
@@ -32,21 +40,35 @@ class ViewController: UIViewController {
             scene.rootNode.addChildNode(node)
         }
 
-        let textShape = SCNText(string: "Fader", extrusionDepth: 1)
-        textShape.flatness = 0.0
+        let container = SCNNode()
 
-        particle.emitterShape = textShape
+        let text = SCNText(string: "fader", extrusionDepth: 1)
+        text.flatness = 0.1
+        text.chamferRadius = 0.02
 
-        let node = SCNNode()
+        do {
+            let node = SCNNode(geometry: text)
+            node.geometry?.materials.append(SCNMaterial())
+            node.geometry?.materials.first?.diffuse.contents = UIColor(white: 0.9, alpha: 1)
+            container.addChildNode(node)
+        }
+
+        // particle
+        do {
+            let node = SCNNode()
+            particle.emitterShape = text
+            node.addParticleSystem(particle)
+            container.addChildNode(node)
+        }
+
         if let particleShapePosition = particle.emitterShape?.boundingSphere.center {
-            node.pivot = SCNMatrix4MakeTranslation(
+            container.pivot = SCNMatrix4MakeTranslation(
                 particleShapePosition.x,
                 particleShapePosition.y,
                 0)
         }
-        node.addParticleSystem(particle)
 
-        scene.rootNode.addChildNode(node)
+        scene.rootNode.addChildNode(container)
     }
 }
 

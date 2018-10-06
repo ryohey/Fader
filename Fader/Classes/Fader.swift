@@ -50,36 +50,36 @@ public class Fader: UIStackView {
         return separator
     }
 
-    public func add<T, S>(target: inout T,
+    public func add<T, S>(target: T,
                           keyPath: WritableKeyPath<T, S>,
                           minValue: S = .init(0.0),
                           maxValue: S = .init(1.0)) where T: AnyObject, S: FloatConvertible {
         let ctrl = NumberControllerSlider<S>(frame: .zero)
         ctrl.minValue = minValue
         ctrl.maxValue = maxValue
-        addController(target: &target,
+        addController(target: target,
                       keyPath: keyPath,
                       controller: AnyController(ctrl),
                       view: ctrl)
     }
 
-    public func add<T>(target: inout T, keyPath: WritableKeyPath<T, String>) where T: AnyObject {
+    public func add<T>(target: T, keyPath: WritableKeyPath<T, String>) where T: AnyObject {
         let ctrl = StringController(frame: .zero)
-        addController(target: &target,
+        addController(target: target,
                       keyPath: keyPath,
                       controller: AnyController(ctrl),
                       view: ctrl)
     }
 
-    public func add<T>(target: inout T, keyPath: WritableKeyPath<T, Bool>) where T: AnyObject {
+    public func add<T>(target: T, keyPath: WritableKeyPath<T, Bool>) where T: AnyObject {
         let ctrl = BooleanController(frame: .zero)
-        addController(target: &target,
+        addController(target: target,
                       keyPath: keyPath,
                       controller: AnyController(ctrl),
                       view: ctrl)
     }
 
-    private func addController<T, S>(target: inout T,
+    private func addController<T, S>(target: T,
                                     keyPath: WritableKeyPath<T, S>,
                                     controller: AnyController<S>,
                                     view: UIView) where T: AnyObject {
@@ -92,7 +92,6 @@ public class Fader: UIStackView {
         controller.labelText = keyPathName
         controller.value = target[keyPath: keyPath]
         controller.valueChanged = { [weak self] (value) in
-            // Since inout parameter can not be captured, it is obtained from a tuple
             if var target = self?.controllers.first(where: { $0.view == view })?.target as? T {
                 target[keyPath: keyPath] = value
             } else {
