@@ -11,6 +11,8 @@ public class NumberControllerSlider: UIView, Controller {
         }
     }
 
+    public var valueChanged: ((ValueType) -> Void)?
+
     public override var tintColor: UIColor! {
         didSet {
             slider.tintColor = tintColor
@@ -51,7 +53,10 @@ public class NumberControllerSlider: UIView, Controller {
         addSubview(slider)
         addSubview(textField)
 
-        slider.valueChanged = { self.value = $0 }
+        slider.valueChanged = {
+            self.value = $0
+            self.valueChanged?($0)
+        }
         textField.keyboardType = .decimalPad
         configureTextFieldAccessory()
 
@@ -98,6 +103,7 @@ public class NumberControllerSlider: UIView, Controller {
     @objc private func didPushDone() {
         if let text = textField.text, let v = Float(text) {
             value = v
+            valueChanged?(v)
             textField.resignFirstResponder()
         } else {
             applyValue()

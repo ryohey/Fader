@@ -20,6 +20,8 @@
 		D91756342167BCF800AF6665 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756302167BCF800AF6665 /* Controller.swift */; };
 		D91756352167BCF800AF6665 /* NumberControllerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756312167BCF800AF6665 /* NumberControllerSlider.swift */; };
 		D91756392167BDD700AF6665 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91756382167BDD700AF6665 /* Switch.swift */; };
+		D917563B2167C1FF00AF6665 /* BooleanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917563A2167C1FF00AF6665 /* BooleanController.swift */; };
+		D917563D2167C4D900AF6665 /* Fader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917563C2167C4D900AF6665 /* Fader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		D91756302167BCF800AF6665 /* Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Controller.swift; path = ../../Fader/Classes/Controller.swift; sourceTree = "<group>"; };
 		D91756312167BCF800AF6665 /* NumberControllerSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberControllerSlider.swift; path = ../../Fader/Classes/NumberControllerSlider.swift; sourceTree = "<group>"; };
 		D91756382167BDD700AF6665 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Switch.swift; path = ../../Fader/Classes/Switch.swift; sourceTree = "<group>"; };
+		D917563A2167C1FF00AF6665 /* BooleanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BooleanController.swift; path = ../../Fader/Classes/BooleanController.swift; sourceTree = "<group>"; };
+		D917563C2167C4D900AF6665 /* Fader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fader.swift; path = ../../Fader/Classes/Fader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +127,9 @@
 				D917562F2167BCF800AF6665 /* Slider.swift */,
 				D91756382167BDD700AF6665 /* Switch.swift */,
 				D91756312167BCF800AF6665 /* NumberControllerSlider.swift */,
+				D917563A2167C1FF00AF6665 /* BooleanController.swift */,
 				D917562E2167BCF800AF6665 /* StringController.swift */,
+				D917563C2167C4D900AF6665 /* Fader.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for Fader";
@@ -382,6 +388,8 @@
 				D91756352167BCF800AF6665 /* NumberControllerSlider.swift in Sources */,
 				D91756342167BCF800AF6665 /* Controller.swift in Sources */,
 				D91756322167BCF800AF6665 /* StringController.swift in Sources */,
+				D917563D2167C4D900AF6665 /* Fader.swift in Sources */,
+				D917563B2167C1FF00AF6665 /* BooleanController.swift in Sources */,
 				D91756392167BDD700AF6665 /* Switch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

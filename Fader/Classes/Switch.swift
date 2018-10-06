@@ -44,5 +44,6 @@ public class Switch: UIView {
         super.touchesEnded(touches, with: event)
 
         value = !value
+        valueChanged?(value)
     }
 }
