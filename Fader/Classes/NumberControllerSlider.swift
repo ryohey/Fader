@@ -1,7 +1,7 @@
 import UIKit
 
 @IBDesignable
-public class NumberControllerSlider<T>: UIView, Controller where T: FloatConvertible {
+public class NumberControllerSlider<T>: ControllerView, Controller where T: FloatConvertible {
     public typealias ValueType = T
 
     public var value: ValueType = .init(0) {
@@ -26,64 +26,37 @@ public class NumberControllerSlider<T>: UIView, Controller where T: FloatConvert
 
     public var valueChanged: ((ValueType) -> Void)?
 
-    public var labelText: String = "" {
-        didSet {
-            label.text = labelText
-        }
-    }
-
     public override var tintColor: UIColor! {
         didSet {
             slider.tintColor = tintColor
-            mark.backgroundColor = tintColor
         }
     }
 
-    private let mark = UIView(frame: .zero)
-    private let label = UILabel(frame: .zero)
     private let slider = Slider(frame: .zero)
     private let textField = UITextField(frame: .zero)
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        initialize()
-    }
+    override func initialize() {
+        super.initialize()
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initialize()
-    }
-
-    private func initialize() {
-        backgroundColor = UIColor.black
-        label.text = "Label"
-
-        mark.backgroundColor = tintColor
-        label.textColor = .white
-        label.backgroundColor = .clear
-        label.font = .systemFont(ofSize: UIFont.smallSystemFontSize)
         slider.backgroundColor = UIColor(white: 1, alpha: 0.2)
-        textField.backgroundColor = UIColor(white: 1, alpha: 0.2)
-        textField.textColor = .white
-        textField.font = .systemFont(ofSize: UIFont.smallSystemFontSize)
-
-        addSubview(mark)
-        addSubview(label)
-        addSubview(slider)
-        addSubview(textField)
-
         slider.valueChanged = {
             let v = T.init($0)
             self.value = v
             self.valueChanged?(v)
         }
+        addSubview(slider)
+
+        textField.backgroundColor = UIColor(white: 1, alpha: 0.2)
+        textField.textColor = .white
+        textField.font = .systemFont(ofSize: UIFont.smallSystemFontSize)
         textField.keyboardType = .decimalPad
-        configureTextFieldAccessory()
+        textField.inputAccessoryView = createInputToolbar()
+        addSubview(textField)
 
         applyValue()
     }
 
-    private func configureTextFieldAccessory() {
+    private func createInputToolbar() -> UIToolbar {
         let toolbar = UIToolbar()
 
         toolbar.barStyle = .blackTranslucent
@@ -95,24 +68,26 @@ public class NumberControllerSlider<T>: UIView, Controller where T: FloatConvert
 
         toolbar.sizeToFit()
 
-        textField.inputAccessoryView = toolbar
+        return toolbar
     }
 
     public override func layoutSubviews() {
         super.layoutSubviews()
 
-        let margin: CGFloat = 8.0
-        let markWidth: CGFloat = 5
-        let contentWidth = frame.width - markWidth - margin * 2
-        let labelWidth = contentWidth / 3 - margin * 2
-        let textFieldWidth = contentWidth / 4 - margin * 2
-        let sliderWidth = contentWidth - labelWidth - textFieldWidth - margin * 2
-        let height = frame.height - margin * 2.0
+        let contentWidth = frame.width - label.frame.maxX - Margin * 2
+        let textFieldWidth = contentWidth / 4 - Margin
+        let sliderWidth = contentWidth - textFieldWidth - Margin
+        let height = frame.height - Margin * 2.0
 
-        mark.frame = CGRect(x: 0, y: 0, width: markWidth, height: frame.height)
-        label.frame = CGRect(x: mark.frame.maxX + margin, y: margin, width: labelWidth, height: height)
-        slider.frame = CGRect(x: label.frame.maxX + margin, y: margin, width: sliderWidth, height: height)
-        textField.frame = CGRect(x: slider.frame.maxX + margin, y: margin, width: textFieldWidth, height: height)
+        slider.frame = CGRect(x: label.frame.maxX + Margin,
+                              y: Margin,
+                              width: sliderWidth,
+                              height: height)
+
+        textField.frame = CGRect(x: slider.frame.maxX + Margin,
+                                 y: Margin,
+                                 width: textFieldWidth,
+                                 height: height)
     }
 
     private func applyValue() {
