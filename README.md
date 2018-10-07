@@ -22,7 +22,7 @@ fader.add(target: particle,
           maxValue: 1000.0)
 ```
 
-By the grammar of the new keypath of Swift 4, we can describe it type-safely shortly.
+By new KeyPath syntax of Swift 4, we can describe it type-safely and shortly.
 
 ## Usage
 
