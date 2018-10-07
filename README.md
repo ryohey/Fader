@@ -1,11 +1,11 @@
 # Fader
 
-![many faders](https://user-images.githubusercontent.com/5355966/46582106-f5006780-ca7c-11e8-88bc-d4b227d36612.jpg)
-
 [![CI Status](https://img.shields.io/travis/ryohey/Fader.svg?style=flat)](https://travis-ci.org/ryohey/Fader)
 [![Version](https://img.shields.io/cocoapods/v/Fader.svg?style=flat)](https://cocoapods.org/pods/Fader)
 [![License](https://img.shields.io/cocoapods/l/Fader.svg?style=flat)](https://cocoapods.org/pods/Fader)
 [![Platform](https://img.shields.io/cocoapods/p/Fader.svg?style=flat)](https://cocoapods.org/pods/Fader)
+
+![many faders](https://user-images.githubusercontent.com/5355966/46582106-f5006780-ca7c-11e8-88bc-d4b227d36612.jpg)
 
 ![video](https://user-images.githubusercontent.com/5355966/46582006-e5345380-ca7b-11e8-9310-1e549d60938d.gif)
 
