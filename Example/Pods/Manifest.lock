@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Fader: 920d245a364aee0b959f5307900a3a4ae897bc7a
+  Fader: f31786487b49eb614048a51eddfc12ef12da6a0c
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
 
 PODFILE CHECKSUM: a6cce13e5ba825db94a708e37815fdf4b50afea9

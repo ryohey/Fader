@@ -1,5 +1,6 @@
 import UIKit
 import SceneKit
+import Fader
 
 class ViewController: UIViewController {
     @IBOutlet weak var scnView: SCNView!
