@@ -65,53 +65,9 @@ public class Fader: UIStackView {
         return separator
     }
 
-    public func add<T, S>(target: T,
-                          keyPath: WritableKeyPath<T, S>,
-                          minValue: S = .init(0.0),
-                          maxValue: S = .init(1.0)) where T: AnyObject, S: FloatConvertible {
-        let ctrl = NumberControllerSlider<S>(frame: .zero)
-        ctrl.minValue = minValue
-        ctrl.maxValue = maxValue
-        addController(target: target,
-                      keyPath: keyPath,
-                      controller: AnyController(ctrl),
-                      view: ctrl)
-    }
+    private func addController<T>(_ controller: UIView, _ target: T) where T: AnyObject {
+        controllers.append(ControllerTarget(view: controller, target: target))
 
-    public func add<T>(target: T, keyPath: WritableKeyPath<T, String?>) where T: AnyObject {
-        let ctrl = StringController(frame: .zero)
-        addController(target: target,
-                      keyPath: keyPath,
-                      controller: AnyController(ctrl),
-                      view: ctrl)
-    }
-
-    public func add<T>(target: T, keyPath: WritableKeyPath<T, Bool>) where T: AnyObject {
-        let ctrl = BooleanController(frame: .zero)
-        addController(target: target,
-                      keyPath: keyPath,
-                      controller: AnyController(ctrl),
-                      view: ctrl)
-    }
-
-    private func addController<T, S>(target: T,
-                                    keyPath: WritableKeyPath<T, S>,
-                                    controller: AnyController<S>,
-                                    view: UIView) where T: AnyObject {
-        addControllerView(view)
-
-        controllers.append(ControllerTarget(view: view, target: target))
-
-        let keyPathName = target is NSObject ? NSExpression(forKeyPath: keyPath).keyPath : "unknown"
-
-        controller.labelText = keyPathName
-        controller.value = target[keyPath: keyPath]
-        controller.valueChanged = { [weak target] (value) in
-            target?[keyPath: keyPath] = value
-        }
-    }
-
-    private func addControllerView(_ controller: UIView) {
         let firstController = controllers.first?.view
 
         if firstController != nil {
@@ -143,3 +99,36 @@ public class Fader: UIStackView {
                        completion: nil)
     }
 }
+
+// MARK: - KeyPath support
+
+extension Fader {
+    public func add<T, S>(target: T,
+                          keyPath: WritableKeyPath<T, S>,
+                          minValue: S = .init(0.0),
+                          maxValue: S = .init(1.0)) where T: AnyObject, S: FloatConvertible {
+        var view = NumberControllerSlider<S>(frame: .zero)
+        view.minValue = minValue
+        view.maxValue = maxValue
+        addController(view, target)
+        view.bind(to: target, keyPath: keyPath, propName: nil)
+    }
+
+    public func add<T>(target: T, keyPath: WritableKeyPath<T, String?>) where T: AnyObject {
+        var view = StringController(frame: .zero)
+        addController(view, target)
+        view.bind(to: target, keyPath: keyPath, propName: nil)
+    }
+
+    public func add<T>(target: T, keyPath: WritableKeyPath<T, Bool>) where T: AnyObject {
+        var view = BooleanController(frame: .zero)
+        addController(view, target)
+        view.bind(to: target, keyPath: keyPath, propName: nil)
+    }
+}
+
+// MARK: - Callback support
+
+extension Fader {
+}
+

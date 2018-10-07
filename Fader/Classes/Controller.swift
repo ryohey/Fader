@@ -7,39 +7,21 @@ public protocol Controller {
     var labelText: String { get set }
 }
 
-public class AnyController<ValueType>: Controller {
-    private let valueGetter: () -> ValueType
-    private let valueSetter: (ValueType) -> Void
-    private let valueChangedGetter: () -> ((ValueType) -> Void)?
-    private let valueChangedSetter: (((ValueType) -> Void)?) -> Void
-    private let labelTextGetter: () -> String
-    private let labelTextSetter: (String) -> Void
-
-    init<T: Controller>(_ base: T)
-        where T.ValueType == ValueType
-    {
-        var mbase = base
-        valueGetter = { base.value }
-        valueSetter = { mbase.value = $0 }
-        valueChangedGetter = { base.valueChanged }
-        valueChangedSetter = { mbase.valueChanged = $0 }
-        labelTextGetter = { base.labelText }
-        labelTextSetter = { mbase.labelText = $0 }
+extension Controller {
+    mutating func bind<T>(to target: T,
+                          keyPath: WritableKeyPath<T, ValueType>,
+                          propName: String?) where T: AnyObject {
+        let keyPathName = target is NSObject ? NSExpression(forKeyPath: keyPath).keyPath : nil
+        labelText = propName ?? keyPathName ?? "unknown"
+        value = target[keyPath: keyPath]
+        valueChanged = { [weak target] (value) in
+            target?[keyPath: keyPath] = value
+        }
     }
 
-    public var value: ValueType {
-        get { return valueGetter() }
-        set { valueSetter(newValue) }
+    mutating func bind(to callback: @escaping (ValueType) -> Void,
+                       propName: String) {
+        labelText = propName
+        valueChanged = callback
     }
-
-    public var valueChanged: ((ValueType) -> Void)? {
-        get { return valueChangedGetter() }
-        set { valueChangedSetter(newValue) }
-    }
-
-    public var labelText: String {
-        get { return labelTextGetter() }
-        set { labelTextSetter(newValue) }
-    }
-
 }
