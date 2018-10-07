@@ -102,16 +102,33 @@ public class Fader: UIStackView {
 
 // MARK: - KeyPath support
 
+public struct ControllerOption {
+    let label: String
+}
+
+public struct NumberControllerOption<T> where T: FloatConvertible {
+    let label: String?
+    let minValue: T
+    let maxValue: T
+
+    public static var `default`: NumberControllerOption<T> {
+        return .init(
+            label: nil,
+            minValue: .init(0),
+            maxValue: .init(1)
+        )
+    }
+}
+
 extension Fader {
     public func add<T, S>(target: T,
                           keyPath: WritableKeyPath<T, S>,
-                          minValue: S = .init(0.0),
-                          maxValue: S = .init(1.0)) where T: AnyObject, S: FloatConvertible {
+                          options: NumberControllerOption<S> = NumberControllerOption<S>.default) where T: AnyObject, S: FloatConvertible {
         var view = NumberControllerSlider<S>(frame: .zero)
-        view.minValue = minValue
-        view.maxValue = maxValue
+        view.minValue = options.minValue
+        view.maxValue = options.maxValue
         addController(view, target)
-        view.bind(to: target, keyPath: keyPath, propName: nil)
+        view.bind(to: target, keyPath: keyPath, propName: options.label)
     }
 
     public func add<T>(target: T, keyPath: WritableKeyPath<T, String?>) where T: AnyObject {
@@ -130,5 +147,11 @@ extension Fader {
 // MARK: - Callback support
 
 extension Fader {
+    public func add<T>(propName: String,
+                       minValue: T = .init(0.0),
+                       maxValue: T = .init(1.0),
+                       callback: (T) -> Void) where T: FloatConvertible {
+
+    }
 }
 
