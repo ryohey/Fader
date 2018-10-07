@@ -7,6 +7,13 @@ public protocol Controller {
     var labelText: String { get set }
 }
 
+private func updater<T, ValueType>(target: T,
+                           keyPath: WritableKeyPath<T, ValueType>) -> (ValueType) -> Void where T: AnyObject {
+    return { [weak target] (value) in
+        target?[keyPath: keyPath] = value
+    }
+}
+
 extension Controller {
     mutating func bind<T>(to target: T,
                           keyPath: WritableKeyPath<T, ValueType>,
@@ -14,9 +21,7 @@ extension Controller {
         let keyPathName = target is NSObject ? NSExpression(forKeyPath: keyPath).keyPath : nil
         labelText = propName ?? keyPathName ?? "unknown"
         value = target[keyPath: keyPath]
-        valueChanged = { [weak target] (value) in
-            target?[keyPath: keyPath] = value
-        }
+        valueChanged = updater(target: target, keyPath: keyPath)
     }
 
     mutating func bind(to callback: @escaping (ValueType) -> Void,

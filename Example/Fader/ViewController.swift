@@ -37,8 +37,9 @@ class ViewController: UIViewController {
         fader.add(target: particle,
                   keyPath: \SCNParticleSystem.isAffectedByGravity)
 
-        fader.add(target: self,
-                  keyPath: \UIViewController.title)
+        fader.add(label: "text") { (str: String?) in
+            self.text.string = str
+        }
     }
 
     private func setupScene(_ scene: SCNScene) {

@@ -1,17 +1,12 @@
 import UIKit
 
-struct ControllerTarget<T: AnyObject> {
-    var view: UIView
-    weak var target: T?
-}
-
 private let ControllerHeight: CGFloat = 44
 private let SeparatorHeight: CGFloat = 0.5
 
 @IBDesignable
 public class Fader: UIStackView {
     // controller, target pair
-    private var controllers = [ControllerTarget<AnyObject>]()
+    private var controllers = [UIView]()
     private let closeButton = UIButton(type: .custom)
 
     public var isOpen: Bool = true {
@@ -65,12 +60,10 @@ public class Fader: UIStackView {
         return separator
     }
 
-    private func addController<T>(_ controller: UIView, _ target: T) where T: AnyObject {
-        controllers.append(ControllerTarget(view: controller, target: target))
+    private func addController(_ controller: UIView) {
+        controllers.append(controller)
 
-        let firstController = controllers.first?.view
-
-        if firstController != nil {
+        if controllers.count > 0 {
             addContent(createSeparator())
         }
 
@@ -92,8 +85,8 @@ public class Fader: UIStackView {
                        options: [.curveEaseOut],
                        animations: {
                         for ctrl in self.controllers {
-                            ctrl.view.isHidden = !self.isOpen
-                            ctrl.view.alpha = self.isOpen ? 1 : 0
+                            ctrl.isHidden = !self.isOpen
+                            ctrl.alpha = self.isOpen ? 1 : 0
                         }
         },
                        completion: nil)
@@ -102,56 +95,52 @@ public class Fader: UIStackView {
 
 // MARK: - KeyPath support
 
-public struct ControllerOption {
-    let label: String
-}
-
-public struct NumberControllerOption<T> where T: FloatConvertible {
-    let label: String?
-    let minValue: T
-    let maxValue: T
-
-    public static var `default`: NumberControllerOption<T> {
-        return .init(
-            label: nil,
-            minValue: .init(0),
-            maxValue: .init(1)
-        )
-    }
-}
-
 extension Fader {
     public func add<T, S>(target: T,
                           keyPath: WritableKeyPath<T, S>,
-                          options: NumberControllerOption<S> = NumberControllerOption<S>.default) where T: AnyObject, S: FloatConvertible {
+                          minValue: S = .init(0.0),
+                          maxValue: S = .init(1.0)) where T: AnyObject, S: FloatConvertible {
         var view = NumberControllerSlider<S>(frame: .zero)
-        view.minValue = options.minValue
-        view.maxValue = options.maxValue
-        addController(view, target)
-        view.bind(to: target, keyPath: keyPath, propName: options.label)
+        view.minValue = minValue
+        view.maxValue = maxValue
+        view.bind(to: target, keyPath: keyPath, propName: nil)
+        addController(view)
     }
 
     public func add<T>(target: T, keyPath: WritableKeyPath<T, String?>) where T: AnyObject {
         var view = StringController(frame: .zero)
-        addController(view, target)
         view.bind(to: target, keyPath: keyPath, propName: nil)
+        addController(view)
     }
 
     public func add<T>(target: T, keyPath: WritableKeyPath<T, Bool>) where T: AnyObject {
         var view = BooleanController(frame: .zero)
-        addController(view, target)
         view.bind(to: target, keyPath: keyPath, propName: nil)
+        addController(view)
     }
 }
 
 // MARK: - Callback support
 
 extension Fader {
-    public func add<T>(propName: String,
+    public func add<T>(label: String,
                        minValue: T = .init(0.0),
                        maxValue: T = .init(1.0),
-                       callback: (T) -> Void) where T: FloatConvertible {
+                       callback: @escaping (T) -> Void) where T: FloatConvertible {
+        var view = NumberControllerSlider<T>(frame: .zero)
+        view.bind(to: callback, propName: label)
+        addController(view)
+    }
 
+    public func add(label: String, callback: @escaping (String?) -> Void) {
+        var view = StringController(frame: .zero)
+        view.bind(to: callback, propName: label)
+        addController(view)
+    }
+
+    public func add(label: String, callback: @escaping (Bool) -> Void) {
+        var view = BooleanController(frame: .zero)
+        view.bind(to: callback, propName: label)
+        addController(view)
     }
 }
-
