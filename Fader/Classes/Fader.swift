@@ -12,6 +12,13 @@ private let SeparatorHeight: CGFloat = 0.5
 public class Fader: UIStackView {
     // controller, target pair
     private var controllers = [ControllerTarget<AnyObject>]()
+    private let closeButton = UIButton(type: .custom)
+
+    public var isOpen: Bool = true {
+        didSet {
+            fold()
+        }
+    }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,13 +39,18 @@ public class Fader: UIStackView {
 
     private func setupCloseButton() {
         addArrangedSubview(createSeparator())
+        addArrangedSubview(closeButton)
 
-        let button = UIButton(type: .custom)
-        button.backgroundColor = .black
-        button.setTitle("Close Controls", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        addArrangedSubview(button)
-        button.heightAnchor.constraint(equalToConstant: ControllerHeight).isActive = true
+        closeButton.backgroundColor = .black
+        closeButton.setTitle("Close Controls", for: .normal)
+        closeButton.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+        closeButton.heightAnchor.constraint(equalToConstant: ControllerHeight).isActive = true
+
+        closeButton.addTarget(self, action: #selector(self.didPushCloseButton), for: .touchUpInside)
+    }
+
+    @objc private func didPushCloseButton() {
+        isOpen = !isOpen
     }
 
     private func addContent(_ view: UIView) {
@@ -94,12 +106,8 @@ public class Fader: UIStackView {
 
         controller.labelText = keyPathName
         controller.value = target[keyPath: keyPath]
-        controller.valueChanged = { [weak self] (value) in
-            if var target = self?.controllers.first(where: { $0.view == view })?.target as? T {
-                target[keyPath: keyPath] = value
-            } else {
-                print("warn: target is nil")
-            }
+        controller.valueChanged = { [weak target] (value) in
+            target?[keyPath: keyPath] = value
         }
     }
 
@@ -118,5 +126,20 @@ public class Fader: UIStackView {
         let count = CGFloat(controllers.count)
         let h = count * ControllerHeight + (count - 1.0) * SeparatorHeight
         return CGSize(width: 200, height: h)
+    }
+
+    private func fold() {
+        closeButton.setTitle(isOpen ? "Close Controls" : "Open Controls", for: .normal)
+
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: [.curveEaseOut],
+                       animations: {
+                        for ctrl in self.controllers {
+                            ctrl.view.isHidden = !self.isOpen
+                            ctrl.view.alpha = self.isOpen ? 1 : 0
+                        }
+        },
+                       completion: nil)
     }
 }
