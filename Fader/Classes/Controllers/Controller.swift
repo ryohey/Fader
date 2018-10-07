@@ -25,8 +25,10 @@ extension Controller {
     }
 
     mutating func bind(to callback: @escaping (ValueType) -> Void,
-                       propName: String) {
+                       propName: String,
+                       initialValue: ValueType) {
         labelText = propName
+        value = initialValue
         valueChanged = callback
     }
 }

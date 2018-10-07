@@ -18,7 +18,7 @@ public class ControllerView: UIView {
     }
 
     func initialize() {
-        backgroundColor = UIColor.black
+        backgroundColor = UIColor(white: 0.101, alpha: 1.0)
 
         label.text = "Label"
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
@@ -62,7 +62,7 @@ public class ControllerView: UIView {
             return
         }
 
-        ctx.setFillColor(UIColor(white: 0.3, alpha: 1).cgColor)
+        ctx.setFillColor(UIColor(white: 0.2, alpha: 1).cgColor)
         ctx.fill(CGRect(
             x: 0,
             y: rect.height - SeparatorHeight,

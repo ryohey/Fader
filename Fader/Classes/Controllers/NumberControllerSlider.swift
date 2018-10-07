@@ -53,6 +53,8 @@ public class NumberControllerSlider<T>: ControllerView, Controller where T: Floa
         textField.inputAccessoryView = createInputToolbar()
         addSubview(textField)
 
+        tintColor = UIColor(red: 0.184, green: 0.631, blue: 0.839, alpha: 1)
+
         applyValue()
     }
 

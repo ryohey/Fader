@@ -80,7 +80,8 @@ extension Fader {
     public func add<T, S>(target: T,
                           keyPath: WritableKeyPath<T, S>,
                           minValue: S = .init(0.0),
-                          maxValue: S = .init(1.0)) where T: AnyObject, S: FloatConvertible {
+                          maxValue: S = .init(1.0),
+                          label: String? = nil) where T: AnyObject, S: FloatConvertible {
         var view = NumberControllerSlider<S>(frame: .zero)
         view.minValue = minValue
         view.maxValue = maxValue
@@ -88,15 +89,19 @@ extension Fader {
         addController(view)
     }
 
-    public func add<T>(target: T, keyPath: WritableKeyPath<T, String?>) where T: AnyObject {
+    public func add<T>(target: T,
+                       keyPath: WritableKeyPath<T, String?>,
+                       label: String? = nil) where T: AnyObject {
         var view = StringController(frame: .zero)
-        view.bind(to: target, keyPath: keyPath, propName: nil)
+        view.bind(to: target, keyPath: keyPath, propName: label)
         addController(view)
     }
 
-    public func add<T>(target: T, keyPath: WritableKeyPath<T, Bool>) where T: AnyObject {
+    public func add<T>(target: T,
+                       keyPath: WritableKeyPath<T, Bool>,
+                       label: String? = nil) where T: AnyObject {
         var view = BooleanController(frame: .zero)
-        view.bind(to: target, keyPath: keyPath, propName: nil)
+        view.bind(to: target, keyPath: keyPath, propName: label)
         addController(view)
     }
 }
@@ -107,21 +112,26 @@ extension Fader {
     public func add<T>(label: String,
                        minValue: T = .init(0.0),
                        maxValue: T = .init(1.0),
+                       initialValue: T = .init(0.0),
                        callback: @escaping (T) -> Void) where T: FloatConvertible {
         var view = NumberControllerSlider<T>(frame: .zero)
-        view.bind(to: callback, propName: label)
+        view.bind(to: callback, propName: label, initialValue: initialValue)
         addController(view)
     }
 
-    public func add(label: String, callback: @escaping (String?) -> Void) {
+    public func add(label: String,
+                    initialValue: String = "",
+                    callback: @escaping (String?) -> Void) {
         var view = StringController(frame: .zero)
-        view.bind(to: callback, propName: label)
+        view.bind(to: callback, propName: label, initialValue: initialValue)
         addController(view)
     }
 
-    public func add(label: String, callback: @escaping (Bool) -> Void) {
+    public func add(label: String,
+                    initialValue: Bool = false,
+                    callback: @escaping (Bool) -> Void) {
         var view = BooleanController(frame: .zero)
-        view.bind(to: callback, propName: label)
+        view.bind(to: callback, propName: label, initialValue: initialValue)
         addController(view)
     }
 }

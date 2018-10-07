@@ -35,6 +35,8 @@ public class BooleanController: ControllerView, Controller {
             self.valueChanged?($0)
         }
 
+        tintColor = UIColor(red: 0.5, green: 0.402, blue: 0.530, alpha: 1.0)
+
         applyValue()
     }
 

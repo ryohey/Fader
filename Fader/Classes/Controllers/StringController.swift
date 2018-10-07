@@ -24,6 +24,8 @@ public class StringController: ControllerView, Controller {
         textField.keyboardType = .default
         textField.delegate = self
         addSubview(textField)
+        
+        tintColor = UIColor(red: 0.118, green: 0.827, blue: 0.435, alpha: 1)
 
         applyValue()
     }
