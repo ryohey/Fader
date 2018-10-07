@@ -5,6 +5,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var scnView: SCNView!
     @IBOutlet weak var fader: Fader!
     private var particle = SCNParticleSystem(named: "Fire.scnp", inDirectory: "")!
+    private var text = SCNText(string: "fader", extrusionDepth: 1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,9 @@ class ViewController: UIViewController {
 
         fader.add(target: particle,
                   keyPath: \SCNParticleSystem.isAffectedByGravity)
+
+        fader.add(target: self,
+                  keyPath: \UIViewController.title)
     }
 
     private func setupScene(_ scene: SCNScene) {
@@ -47,7 +51,6 @@ class ViewController: UIViewController {
 
         let container = SCNNode()
 
-        let text = SCNText(string: "fader", extrusionDepth: 1)
         text.flatness = 0.1
         text.chamferRadius = 0.02
 

@@ -78,7 +78,7 @@ public class Fader: UIStackView {
                       view: ctrl)
     }
 
-    public func add<T>(target: T, keyPath: WritableKeyPath<T, String>) where T: AnyObject {
+    public func add<T>(target: T, keyPath: WritableKeyPath<T, String?>) where T: AnyObject {
         let ctrl = StringController(frame: .zero)
         addController(target: target,
                       keyPath: keyPath,
