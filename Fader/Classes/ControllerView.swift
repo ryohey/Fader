@@ -2,6 +2,8 @@ import UIKit
 
 public class ControllerView: UIView {
     let Margin: CGFloat = 8
+    let SeparatorHeight: CGFloat = 0.5
+
     let mark = UIView(frame: CGRect.zero)
     let label = UILabel(frame: CGRect.zero)
 
@@ -51,5 +53,21 @@ public class ControllerView: UIView {
 
         mark.frame = CGRect(x: 0, y: 0, width: markWidth, height: frame.height)
         label.frame = CGRect(x: mark.frame.maxX + Margin, y: Margin, width: labelWidth, height: height)
+    }
+
+    public override func draw(_ rect: CGRect) {
+        super.draw(rect)
+
+        guard let ctx = UIGraphicsGetCurrentContext() else {
+            return
+        }
+
+        ctx.setFillColor(UIColor(white: 0.3, alpha: 1).cgColor)
+        ctx.fill(CGRect(
+            x: 0,
+            y: rect.height - SeparatorHeight,
+            width: rect.width,
+            height: SeparatorHeight
+        ))
     }
 }

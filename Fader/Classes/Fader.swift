@@ -1,7 +1,6 @@
 import UIKit
 
 private let ControllerHeight: CGFloat = 44
-private let SeparatorHeight: CGFloat = 0.5
 
 @IBDesignable
 public class Fader: UIStackView {
@@ -33,7 +32,6 @@ public class Fader: UIStackView {
     }
 
     private func setupCloseButton() {
-        addArrangedSubview(createSeparator())
         addArrangedSubview(closeButton)
 
         closeButton.backgroundColor = .black
@@ -48,33 +46,16 @@ public class Fader: UIStackView {
         isOpen = !isOpen
     }
 
-    private func addContent(_ view: UIView) {
-        // below close button
-        insertArrangedSubview(view, at: arrangedSubviews.count - 2)
-    }
-
-    private func createSeparator() -> UIView {
-        let separator = UIView()
-        separator.backgroundColor = UIColor(white: 0.3, alpha: 1)
-        separator.heightAnchor.constraint(equalToConstant: SeparatorHeight).isActive = true
-        return separator
-    }
-
     private func addController(_ controller: UIView) {
         controllers.append(controller)
-
-        if controllers.count > 0 {
-            addContent(createSeparator())
-        }
-
-        addContent(controller)
+        // insert before close button
+        insertArrangedSubview(controller, at: arrangedSubviews.count - 1)
         controller.heightAnchor.constraint(equalToConstant: ControllerHeight).isActive = true
     }
 
     override public var intrinsicContentSize: CGSize {
-        let count = CGFloat(controllers.count)
-        let h = count * ControllerHeight + (count - 1.0) * SeparatorHeight
-        return CGSize(width: 200, height: h)
+        return CGSize(width: 200,
+                      height: CGFloat(controllers.count) * ControllerHeight)
     }
 
     private func fold() {
