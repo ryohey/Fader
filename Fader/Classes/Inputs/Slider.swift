@@ -1,11 +1,3 @@
-//
-//  Slider.swift
-//  Fader_Example
-//
-//  Created by ryohey on 2018/10/05.
-//  Copyright © 2018年 CocoaPods. All rights reserved.
-//
-
 import UIKit
 
 @IBDesignable
